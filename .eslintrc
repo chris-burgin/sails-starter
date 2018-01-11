@@ -1,25 +1,87 @@
-################################################
-#   ╔═╗╔═╗╦  ╦╔╗╔╔╦╗┬┌─┐┌┐┌┌─┐┬─┐┌─┐
-#   ║╣ ╚═╗║  ║║║║ ║ ││ ┬││││ │├┬┘├┤
-#  o╚═╝╚═╝╩═╝╩╝╚╝ ╩ ┴└─┘┘└┘└─┘┴└─└─┘
-#
-# > Glob patterns indicating files/directories
-# > to exclude when checking code quality with
-# > eslint.
-#
-# This file (`.eslintignore`) is only relevant
-# if you are using eslint.
-#
-# It exists to signify to eslint that certain
-# files and/or directories should be ignored for
-# the purposes of linting -- e.g. because they
-# are already minified, or external dependencies,
-# etc.
-#
-# Some reasonable defaults are included below,
-# but, of course, you should modify/extend/prune
-# to fit your needs!
-#
-################################################
+{
+  //   ╔═╗╔═╗╦  ╦╔╗╔╔╦╗┬─┐┌─┐
+  //   ║╣ ╚═╗║  ║║║║ ║ ├┬┘│
+  //  o╚═╝╚═╝╩═╝╩╝╚╝ ╩ ┴└─└─┘
+  // A set of basic code conventions (similar to a .jshintrc file) designed to
+  // and encourage quality and consistency across your Sails app's code base.
+  // These rules are checked against automatically any time you run `npm test`.
+  //
+  // > An additional eslintrc override file is included in the `assets/` folder
+  // > right out of the box.  This is specifically to allow for variations in acceptable
+  // > global variables between front-end JavaScript code designed to run in the browser
+  // > vs. backend code designed to run in a Node.js/Sails process.
+  //
+  // > Note: If you're using mocha, you'll want to add an extra override file to your
+  // > `test/` folder so that eslint will tolerate mocha-specific globals like `before`
+  // > and `describe`.
+  //
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // For more information about any of the rules below, check out the relevant
+  // reference page on eslint.org.  For example, to get details on "no-sequences",
+  // you would visit `http://eslint.org/docs/rules/no-sequences`.
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  "ecmaFeatures": { 
+    "modules": true
+  },
 
-assets/dependencies/**/*.js
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    }
+  },
+
+  "globals": {
+    // If "no-undef" is enabled below and your app uses globals, be sure to list all
+    // relevant globals below (including the globalIds of models, if relevant):
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // "sails": true,
+    // "_": true,
+    // "async": true,
+    // ...and any other backend globals (e.g. `"User": true`)
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  },
+
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "callback-return": [2, ["callback", "cb", "next", "done", "proceed"]],
+    "camelcase": [1, { "properties": "always" }],
+    "comma-style": [2, "last"],
+    "curly": [2],
+    "eqeqeq": [2, "always"],
+    "eol-last": [1],
+    "handle-callback-err": [2],
+    "indent": [1, 2, { "SwitchCase": 1 }],
+    "linebreak-style": [2, "unix"],
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+    "no-return-assign": [2, "always"],
+    "no-sequences": [2],
+    "no-trailing-spaces": [1],
+    "no-undef": [0],
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // ^^Note: If this "no-undef" rule is enabled (set to `[2]`), then model globals
+    // (e.g. `"User": true`) should also be included above under "globals".
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    "no-unexpected-multiline": [1],
+    "no-unused-vars": [1],
+    "one-var": [2, "never"],
+    "quotes": [
+      1,
+      "double",
+      { "avoidEscape": false, "allowTemplateLiterals": true }
+    ],
+    "semi": [2, "never"]
+  },
+
+  "plugins": [
+    "react"
+  ]
+}
